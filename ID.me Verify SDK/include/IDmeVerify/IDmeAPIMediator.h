@@ -16,7 +16,7 @@
 typedef void (^IDmeAPIRequestResults)(BOOL status, NSString *errorMessage, id resultsObject);
 
 /// Use this initializaiton method when using the @b IDmeAPIRequestTypeUserProfile route
-- (instancetype)initWithAffinity:(AffinityGroup)affinity;
+- (instancetype)initWithAffinity:(IDmeVerifyAffinityGroup)affinity;
 
 /*!
  * This method receives API requests to ID.me's API, and receives data back in the @b IDmeAPIRequestResults block.

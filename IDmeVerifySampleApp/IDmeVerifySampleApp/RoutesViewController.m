@@ -117,7 +117,7 @@
         case 1:{ // Sign Up
             
             // Creates a new military user. Use the AffintiyGroup typedef to create military, student, or responder.
-            NSString *affinityGroupString = [NSString stringWithFormat:@"%d", AffinityGroupMilitary];
+            NSString *affinityGroupString = [NSString stringWithFormat:@"%d", IDmeVerifyAffinityGroupMilitary];
             
             NSMutableDictionary *params = [@{ IDME_API_PARAM_EMAIL : @"",
                                               IDME_API_PARAM_PASSWORD : @"",
@@ -146,13 +146,13 @@
 #warning VERIFY MILITARY: Make sure to to populate the 'params' (e.g., NSMutableDictionary) object with test values of your choosing.
         case 3:{ // Verify Military
             
-            NSString *affinitySubgroup = [NSString stringForAffinitySubgroup:AffinitySubgroupServiceMember];
+            NSString *affinitySubgroup = [NSString stringForAffinitySubgroup:IDmeVerifyAffinitySubgroupServiceMember];
             NSMutableDictionary *params = [@{ IDME_API_PARAM_SERVICE_MEMBER_FIRST_NAME : @"",
                                               IDME_API_PARAM_SERVICE_MEMBER_LAST_NAME : @"",
                                               IDME_API_PARAM_SSN : @"",
                                               IDME_API_PARAM_BIRTHDATE : @"",
                                               IDME_API_PARAM_ACTIVE_DUTY_STATUS_DATE : @"",
-                                              IDME_API_PARAM_RELATIONSHIP : [NSString stringForRelationshipType:RelationshipTypeSelf],
+                                              IDME_API_PARAM_RELATIONSHIP : [NSString stringForRelationshipType:IDmeVerifyRelationshipTypeSelf],
                                               IDME_API_PARAM_AFFINITY_SUBGROUP_ID : affinitySubgroup} mutableCopy];
             [mediator performRequest:IDmeAPIRequestTypeVerifyMilitary
                           withParams:params
@@ -218,7 +218,7 @@
         } break;
 
         case 7:{ // Military Profile (No extra params necessary to perform this request)
-            IDmeAPIMediator *mediator = [[IDmeAPIMediator alloc] initWithAffinity:AffinityGroupMilitary];
+            IDmeAPIMediator *mediator = [[IDmeAPIMediator alloc] initWithAffinity:IDmeVerifyAffinityGroupMilitary];
             [mediator performRequest:IDmeAPIRequestTypeUserProfile
                           withParams:[@{} mutableCopy]
                           andResults:^(BOOL status, NSString *errorMessage, id resultsObject) {
@@ -227,7 +227,7 @@
         } break;
 
         case 8:{ // Student Profile (No extra params necessary to perform this request)
-            IDmeAPIMediator *mediator = [[IDmeAPIMediator alloc] initWithAffinity:AffinityGroupStudent];
+            IDmeAPIMediator *mediator = [[IDmeAPIMediator alloc] initWithAffinity:IDmeVerifyAffinityGroupStudent];
             [mediator performRequest:IDmeAPIRequestTypeUserProfile
                           withParams:[@{} mutableCopy]
                           andResults:^(BOOL status, NSString *errorMessage, id resultsObject) {
@@ -236,7 +236,7 @@
         } break;
             
         case 9:{ // First Responder Profile (No extra params necessary to perform this request)
-            IDmeAPIMediator *mediator = [[IDmeAPIMediator alloc] initWithAffinity:AffinityGroupResponder];
+            IDmeAPIMediator *mediator = [[IDmeAPIMediator alloc] initWithAffinity:IDmeVerifyAffinityGroupResponder];
             [mediator performRequest:IDmeAPIRequestTypeUserProfile
                           withParams:[@{} mutableCopy]
                           andResults:^(BOOL status, NSString *errorMessage, id resultsObject) {

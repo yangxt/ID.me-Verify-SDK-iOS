@@ -11,34 +11,34 @@
 @interface NSString (IDmeVerify)
 
 /// Typedefs (for API)
-typedef NS_ENUM (NSUInteger, AffinityGroup)
+typedef NS_ENUM (NSUInteger, IDmeVerifyAffinityGroup)
 {
-    AffinityGroupMilitary = 1,
-    AffinityGroupResponder,
-    AffinityGroupStudent
+    IDmeVerifyAffinityGroupMilitary = 1,
+    IDmeVerifyAffinityGroupResponder,
+    IDmeVerifyAffinityGroupStudent
 };
 
-typedef NS_ENUM(NSUInteger, AffinitySubgroup)
+typedef NS_ENUM(NSUInteger, IDmeVerifyAffinitySubgroup)
 {
-    AffinitySubgroupServiceMember = 1,
-    AffinitySubgroupVeteran,
-    AffinitySubgroupMilitarySpouse,
-    AffinitySubgroupMilitaryFamily,
-    AffinitySubgroupRetiree,
-    AffinitySubgroupEMT
+    IDmeVerifyAffinitySubgroupServiceMember = 1,
+    IDmeVerifyAffinitySubgroupVeteran,
+    IDmeVerifyAffinitySubgroupMilitarySpouse,
+    IDmeVerifyAffinitySubgroupMilitaryFamily,
+    IDmeVerifyAffinitySubgroupRetiree,
+    IDmeVerifyAffinitySubgroupEMT
 };
 
-typedef NS_ENUM(NSUInteger, RelationshipType)
+typedef NS_ENUM(NSUInteger, IDmeVerifyRelationshipType)
 {
-    RelationshipTypeSelf,
-    RelationshipTypeSpouse,
-    RelationshipTypeFamily
+    IDmeVerifyRelationshipTypeSelf,
+    IDmeVerifyRelationshipTypeSpouse,
+    IDmeVerifyRelationshipTypeFamily
 };
 
 /// String Manipulation Methods (for API)
-+ (instancetype)stringForAffinityGroup:(AffinityGroup)group;
-+ (instancetype)stringForAffinitySubgroup:(AffinitySubgroup)subgroup;
-+ (instancetype)stringForRelationshipType:(RelationshipType)type;
++ (instancetype)stringForAffinityGroup:(IDmeVerifyAffinityGroup)group;
++ (instancetype)stringForAffinitySubgroup:(IDmeVerifyAffinitySubgroup)subgroup;
++ (instancetype)stringForRelationshipType:(IDmeVerifyRelationshipType)type;
 
 /// Credential Scanning & Parsing Methods
 + (instancetype)ageFromBirthdate:(NSString *)date;

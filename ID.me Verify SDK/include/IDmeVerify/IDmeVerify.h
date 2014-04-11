@@ -63,7 +63,7 @@
  *
  * @return A singleton instance of IDmeVerify.
  */
-+ (instancetype)sharedInstance;
++ (IDmeVerify *)sharedInstance;
 
 /*!
  * This method initializes the ID.me Verify SDK. As such, it must be called
