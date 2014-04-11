@@ -56,6 +56,22 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
     return NO;
 }
 
+static NSDictionary * AFDictionaryByRemovingKeysWithNullValues(NSDictionary *dictionary) {
+    NSMutableDictionary *mutableDictionary = [NSMutableDictionary dictionaryWithDictionary:dictionary];
+    for (id <NSCopying> key in [dictionary allKeys]) {
+        id value = [dictionary objectForKey:key];
+        if (!value || [value isEqual:[NSNull null]]) {
+            [mutableDictionary removeObjectForKey:key];
+        } else {
+            if ([value isKindOfClass:[NSDictionary class]]) {
+                [mutableDictionary setObject:AFDictionaryByRemovingKeysWithNullValues(value) forKey:key];
+            }
+        }
+    }
+
+    return mutableDictionary;
+}
+
 @implementation AFHTTPResponseSerializer
 
 + (instancetype)serializer {
@@ -211,33 +227,39 @@ static BOOL AFErrorOrUnderlyingErrorHasCode(NSError *error, NSInteger code) {
     }
 
     id responseObject = nil;
-    NSString *responseString = [[NSString alloc] initWithData:data encoding:stringEncoding];
-    if (responseString && ![responseString isEqualToString:@" "]) {
-        // Workaround for a bug in NSJSONSerialization when Unicode character escape codes are used instead of the actual character
-        // See http://stackoverflow.com/a/12843465/157142
-        data = [responseString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *serializationError = nil;
+    @autoreleasepool {
+        NSString *responseString = [[NSString alloc] initWithData:data encoding:stringEncoding];
+        if (responseString && ![responseString isEqualToString:@" "]) {
+            // Workaround for a bug in NSJSONSerialization when Unicode character escape codes are used instead of the actual character
+            // See http://stackoverflow.com/a/12843465/157142
+            data = [responseString dataUsingEncoding:NSUTF8StringEncoding];
 
-        NSError *serializationError = nil;
-        if (data) {
-            if ([data length] > 0) {
-                responseObject = [NSJSONSerialization JSONObjectWithData:data options:self.readingOptions error:&serializationError];
+            if (data) {
+                if ([data length] > 0) {
+                    responseObject = [NSJSONSerialization JSONObjectWithData:data options:self.readingOptions error:&serializationError];
+                } else {
+                    return nil;
+                }
             } else {
-                return nil;
+                NSDictionary *userInfo = @{
+                                           NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Data failed decoding as a UTF-8 string", nil, @"AFNetworking"),
+                                           NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not decode string: %@", nil, @"AFNetworking"), responseString]
+                                           };
+
+                serializationError = [NSError errorWithDomain:AFNetworkingErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:userInfo];
             }
-        } else {
-            NSDictionary *userInfo = @{
-                                       NSLocalizedDescriptionKey: NSLocalizedStringFromTable(@"Data failed decoding as a UTF-8 string", nil, @"AFNetworking"),
-                                       NSLocalizedFailureReasonErrorKey: [NSString stringWithFormat:NSLocalizedStringFromTable(@"Could not decode string: %@", nil, @"AFNetworking"), responseString]
-                                       };
-
-            serializationError = [NSError errorWithDomain:AFNetworkingErrorDomain code:NSURLErrorCannotDecodeContentData userInfo:userInfo];
-        }
-
-        if (error) {
-            *error = AFErrorWithUnderlyingError(serializationError, *error);
         }
     }
 
+    if (self.removesKeysWithNullValues && responseObject && [responseObject isKindOfClass:[NSDictionary class]]) {
+        responseObject = AFDictionaryByRemovingKeysWithNullValues(responseObject);
+    }
+    
+    if (error) {
+        *error = AFErrorWithUnderlyingError(serializationError, *error);;
+    }
+    
     return responseObject;
 }
 
