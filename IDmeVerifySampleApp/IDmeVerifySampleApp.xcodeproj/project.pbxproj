@@ -469,7 +469,7 @@
 				INFOPLIST_FILE = "IDmeVerifySampleApp/IDmeVerifySampleApp-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/arthur/Documents/projects/idme/ID.me-Verify-SDK-iOS/ID.me\\ Verify\\ SDK",
+					"\"$(SRCROOT)/../ID.me Verify SDK\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -486,7 +486,7 @@
 				INFOPLIST_FILE = "IDmeVerifySampleApp/IDmeVerifySampleApp-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/arthur/Documents/projects/idme/ID.me-Verify-SDK-iOS/ID.me\\ Verify\\ SDK",
+					"\"$(SRCROOT)/../ID.me Verify SDK\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
