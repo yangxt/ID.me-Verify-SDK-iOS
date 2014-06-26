@@ -3,14 +3,14 @@
 ## A. General
 
 ### Release Information
-- **SDK Version:** 2.2.0 (May 21, 2014)
+- **SDK Version:** 2.2.1 (June 25, 2014)
 - **Maintained By:** [Arthur Ariel Sabintsev](http://github.com/ArtSabintsev)
 
 For more information please email us at [mobile@id.me](mobile@id.me) or visit us at [http://developer.id.me](http://developer.id.me).
 
 ### Changelog
-- Fixed issue with sign out and `NSUserDefaults`.
-- Converted most `#define` macros to external strings
+- Changed legal age limit from 18 to 13.
+- Updated AFNetworking dependency to v2.3.1
   
 ### General Information
 The ID.me Verify SDK for iOS is a library that adds the following functionality to your mobile iOS application:
