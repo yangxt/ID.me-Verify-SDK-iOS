@@ -9,7 +9,7 @@
 For more information please email us at [mobile@id.me](mobile@id.me) or visit us at [http://developer.id.me](http://developer.id.me).
 
 ### Changelog
-- Changed legal age limit from 13 to 18.
+- Changed legal age limit from 18 to 13.
 - Updated AFNetworking dependency to v2.3.1
   
 ### General Information
