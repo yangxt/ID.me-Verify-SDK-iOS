@@ -64,7 +64,7 @@ Using CocoaPods:
 pod 'IDmeVerify'
 ```
 
-If you don't sue CocoaPods, consider add this SDK as a submodule of your application. 
+If you don't use CocoaPods, consider adding this SDK as a submodule of your application. 
 
 Regardless which method you use, make sure to the follow the directions below.
 
